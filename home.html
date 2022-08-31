@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Mamiko part -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Mamiko part -->
+
+
+    <!-- Linwen part -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;700&family=Comfortaa:wght@500&family=Courgette&family=Kalam&family=Lavishly+Yours&family=Parisienne&family=Roboto+Mono&family=Sacramento&family=Ultra&family=Viga&display=swap"
+        rel="stylesheet">
+</head>
+<script src="./jquery-3.6.0.js"></script>
+
+<!-- Linwen part -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="./Emma.js" defer></script>
+<script src="./april.js" defer></script>
+<script src="./matt.js" defer></script>
+
+<title>SUDOKU GAME</title>
+</head>
+
+<body>
+    <main>
+        <!-- HOME SECTION -->
+        <div id="home">
+
+            <video autoplay loop muted class="v-header">
+                <source src="./img/home.mp4" type="video/mp4">
+            </video>
+
+            <div id="playbtn">
+                <a id="gotolevel" href="#" onclick="showlevel();"></a>
+            </div>
+
+            <div id="member">
+                <span>April / Emma / Linwen <br> Matheus / Mamiko</span>
+            </div>
+
+        </div>
+        <!-- HOME SECTION END -->
+
+
+
+        <!-- Select Level -->
+        <div id="level">
+            <div class="level-video">
+                <video autoplay loop muted class="v-header">
+                    <source src="./img/logowithbg_square.mp4" type="video/mp4">
+                </video>
+
+            </div>
+
+            <a id="gotoeasy" href="#" onclick="showsudoku('easy');"></a>
+            <a id="gotodifficult" href="#" onclick="showsudoku('diff');"></a>
+
+        </div>
+
+        <!-- Select Level END -->
+
+
+        <!-- SUDOKU GAME -->
+        <div id="sudoku">
+
+            <div class = "info">
+
+            <span class="timer">
+                <i class="fas fa-stopwatch"></i>
+                <p class="minute">00:00</p>
+            </span>
+
+
+
+            <div class="level-video">
+                <video id = "gohome" autoplay loop muted class="v-header" onclick="showhome();">
+                    <source src="./img/home_btn.mp4" type="video/mp4">
+                </video>
+
+            </div>
+        </div>
+
+            <ul class="num-selection">
+                <div class="select1to9">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                </div>
+                <div class="select1to9">
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li id="noshow">00</li>
+
+                </div>
+            </ul>
+
+            <div class="container">
+                <div class="boxLine">
+                    <div class="box1"></div>
+                    <div class="box2"></div>
+                    <div class="box3"></div>
+                </div>
+
+                <div class="boxLine">
+                    <div class="box4"></div>
+                    <div class="box5"></div>
+                    <div class="box6"></div>
+                </div>
+
+                <div class="boxLine">
+                    <div class="box7"></div>
+                    <div class="box8"></div>
+                    <div class="box9"></div>
+                </div>
+            </div>
+
+        </div>
+        <!-- SUDOKU GAME END -->
+
+        <!-- COMPLETED EASY SECTION -->
+        <div id="comp-easy">
+
+            <div class="level-video">
+                <video autoplay loop muted class="v-header">
+                    <source src="./img/logowithbg_square.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <section class="comp-box">
+                <article>
+                    <h2>GAME COMPLETED!</h2>
+                    <aside>
+                        <div class="record">
+                            <p>Record <span id="recordTime">00:00</span></p>
+                        </div>
+                        <div class="button">
+                            <a id="tryagain" href="#" onclick="showlevel();">
+                                CHALLENGE AGAIN
+                            </a>
+                        </div>
+                    </aside>
+                </article>
+            </section>
+        </div>
+        <!-- COMPLETED EASY SECTION END -->
+
+    </main>
+</body>
+
+
+<script>
+
+    // Linwen PART show the page and button animation
+
+    document.querySelector('video').playbackRate = 0.5;
+
+    $('#level').hide();
+    $('#sudoku').hide();
+    $('#sudoku').hide();
+    $('#comp-easy').hide();
+
+
+    function showhome(event) {
+        $('#level').fadeOut("slow");
+        $('#sudoku').fadeOut("slow");
+        $('#comp-easy').hide();
+        $('#home').fadeIn("slow");
+    }
+
+    function showlevel(event) {
+        $('#home').fadeOut("slow");
+        $('#sudoku').hide();
+        $('#comp-easy').hide();
+        $('#level').fadeIn("slow");
+    }
+
+    function showsudoku(event) {
+        $('#level').fadeOut("slow");
+        $('#sudoku').fadeIn("slow");
+        chosenLevel = event;
+    }
+
+   
+
+    $("#playbtn").click(function () {
+        $("#playbtn").animate({
+            height: 500,
+            width: 800,
+            opacity: 0.9
+        },
+            500, "linear", function () {
+            });
+    })
+
+
+    $("#gotoeasy").click(function () {
+        $("#gotoeasy").animate({
+            height: "80%",
+            width: "80%",
+            opacity: 0.9
+        },
+            500, "linear", function () {
+            });
+    })
+
+
+    $("#gotodifficult").click(function () {
+        $("#gotodifficult").animate({
+            height: "80%",
+            width: "80%",
+            opacity: 0.9
+        },
+            500, "linear", function () {
+            });
+    })
+
+
+    $("#tryagain").click(function () {
+        $("#gotoeasy").css({
+            width: "50%",
+            height: "30%",
+            opacity: 1
+        })
+
+        $("#gotodifficult").css({
+            width: "60%",
+            height: "35%",
+            opacity: 1
+        })
+    })
+
+    $("#gohome").click(function(){
+        $('#level').fadeOut("slow");
+        $('#sudoku').fadeOut("slow");
+        $('#comp-easy').hide();
+        $('#home').fadeIn("slow");
+
+        $("#playbtn").css({
+            width: "40%",
+            height: "30%",
+            opacity: 1
+        })
+        $("#gotoeasy").css({
+            width: "50%",
+            height: "30%",
+            opacity: 1
+        })
+
+        $("#gotodifficult").css({
+            width: "60%",
+            height: "35%",
+            opacity: 1
+        })
+
+      needToStop = true;
+      clearInput();
+
+    })
+
+    // MAMIKO PART this is event for when user clicked same number
+
+    function checkSameValue(number) {
+        inputBox.removeClass('sameNumber');
+        if (number) {
+            inputBox.each(function () {
+                if ($(this).text() === number) {
+                    $(this).addClass('sameNumber');
+                }
+            })
+        }
+    }
+
+</script>
+
+</html>
